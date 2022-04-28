@@ -52,7 +52,7 @@ async function run() {
             const events = await cursor.toArray();
             res.send(events);
         })
-        
+
         // post new events
         app.post('/events',async(req,res)=>{
             const newEventList = req.body;
@@ -83,6 +83,7 @@ run().catch(console.dir);
 app.get('/',(req,res)=>{
     res.send('Running volunteer network server');
 })
+
 app.listen(port, ()=>{
     console.log('Listening to port',port);
 })
