@@ -20,6 +20,7 @@ async function run() {
         await client.connect();
         const volunteerCollection = client.db("volunteerNetwork").collection("volunteers");
         const eventCollection = client.db("volunteerNetwork").collection("events");
+        const volunteerListCollection = client.db("volunteerNetwork").collection("volunteer-list");
         
         // volunteers api
         app.get('/volunteers',async(req,res)=>{
@@ -44,17 +45,17 @@ async function run() {
             res.send(result);
         })
 
-        // get events api
-        app.get('/events',async(req,res)=>{
+        // get volunteer list api
+        app.get('/volunteerlist',async(req,res)=>{
             const query = {};
-            const cursor = eventCollection.find(query);
-            const events = await cursor.toArray();
-            res.send(events);
+            const cursor = volunteerListCollection.find(query);
+            const volunteerList = await cursor.toArray();
+            res.send(volunteerList);
         })
-        // post new events
-        app.post('/events',async(req,res)=>{
-            const newEventList = req.body;
-            const result = await eventCollection.insertOne(newEventList);
+        // post new volunteer list
+        app.post('/volunteerlist',async(req,res)=>{
+            const newVolunteerList = req.body;
+            const result = await volunteerListCollection.insertOne(newVolunteerList);
             res.send(result);
         })
     }
