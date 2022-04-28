@@ -45,6 +45,21 @@ async function run() {
             res.send(result);
         })
 
+        // get events api
+          app.get('/events',async(req,res)=>{
+            const query = {};
+            const cursor = eventCollection.find(query);
+            const events = await cursor.toArray();
+            res.send(events);
+        })
+        
+        // post new events
+        app.post('/events',async(req,res)=>{
+            const newEventList = req.body;
+            const result = await eventCollection.insertOne(newEventList);
+            res.send(result);
+        })
+
         // get volunteer list api
         app.get('/volunteerlist',async(req,res)=>{
             const query = {};
